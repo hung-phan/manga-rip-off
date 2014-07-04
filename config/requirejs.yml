@@ -1,0 +1,17 @@
+paths:
+  # require mithril library
+  'mithril': 'mithril/mithril'
+  # require jquery library
+  'jquery': 'jquery/dist/jquery'
+  # require lodash
+  'lodash': 'lodash/dist/lodash'
+  # bootstrap library
+  'bootstrap': 'sass-bootstrap/dist/js/bootstrap'
+  # alertify
+  'alertify': 'alertify/alertify'
+shim:
+  'mithril':
+    exports: 'm'
+  'lodash':
+    exports: '_'
+  'bootstrap': ['jquery']
