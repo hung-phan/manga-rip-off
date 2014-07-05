@@ -35,6 +35,15 @@ module API
           end
           links
         end
+
+        desc "get manga main page"
+        params do
+          requires :link, type: String , desc: "Page link"
+        end
+        post "/" do
+          doc = Nokogiri::HTML(open(params[:link]))
+          puts "hello"
+        end
       end
     end
   end

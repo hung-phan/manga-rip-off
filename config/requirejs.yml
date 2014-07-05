@@ -10,12 +10,12 @@ paths:
   # alertify
   'alertify': 'alertify/alertify'
   # tweenlite
-  'TweenLite': 'greensock/uncompressed/TweenLite'
+  'TweenMax': 'greensock/src/uncompressed/TweenMax'
 shim:
   'mithril':
     exports: 'm'
   'lodash':
     exports: '_'
   'bootstrap': ['jquery']
-  'TweenLite':
-    exports: 'TweenLite'
+  'TweenMax':
+    exports: 'TweenMax'

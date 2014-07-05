@@ -6,7 +6,7 @@ require [
   "login/login"
   "register/register"
   "lodash"
-  "TweenLite"
+  "TweenMax"
   "bootstrap"
 ], ($, m, home, login, register) ->
   $(document).ready ->
