@@ -53,3 +53,4 @@ end
 gem 'grape'
 # embed the V8 Javascript Interpreter into Ruby
 gem 'therubyracer', platforms: :ruby
+gem 'nokogiri'
