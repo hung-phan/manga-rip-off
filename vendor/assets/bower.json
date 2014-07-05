@@ -5,6 +5,7 @@
     "lodash": "latest",
     "jquery": "2.1.1",
     "mithril": "latest",
-    "alertify": "latest"
+    "alertify": "latest",
+    "greensock": "latest"
   }
 }

@@ -9,9 +9,13 @@ paths:
   'bootstrap': 'sass-bootstrap/dist/js/bootstrap'
   # alertify
   'alertify': 'alertify/alertify'
+  # tweenlite
+  'TweenLite': 'greensock/uncompressed/TweenLite'
 shim:
   'mithril':
     exports: 'm'
   'lodash':
     exports: '_'
   'bootstrap': ['jquery']
+  'TweenLite':
+    exports: 'TweenLite'
