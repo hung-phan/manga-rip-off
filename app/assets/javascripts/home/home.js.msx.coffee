@@ -22,14 +22,16 @@ define [
     @timeout        = undefined
     @navigationCtrl = new navigation.controller()
     @currentManga   = undefined
-    @loadMangaList  = false
+    @loadMangaList  = m.prop(false)
 
     registerLoadEvent = (->
-      @loadMangaList = true
+      @loadMangaList(true)
+      m.redraw()
     ).bind(this)
 
     clearLoadEvent = (->
-      @loadMangaList = false
+      @loadMangaList(false)
+      m.redraw()
     ).bind(this)
 
     # event handle
@@ -74,14 +76,18 @@ define [
     # animation for element
     @enterEvent = (event)->
       TweenLite.to event.target, 0.2, {
-        backgroundColor: 'black',
+        width: '100%'
+        borderRadius: '4px'
+        backgroundColor: 'black'
         color: '#89CD25'
       }
       return
 
     @leaveEvent = (event)->
       TweenLite.to event.target, 0.2, {
-        backgroundColor: 'none',
+        width: '80%'
+        borderRadius: '0'
+        backgroundColor: 'none'
         color: 'black'
       }
       return
@@ -94,27 +100,27 @@ define [
       {navigation.view(ctrl.navigationCtrl)}
       <div class="container">
         <div class="row">
-          <input type="text" class="col-xs-12 col-md-6 col-md-offset-6 search-box status-form"
+          <input type="text" class="col-xs-12 col-md-12 search-box status-form"
             placeholder="Manga name ..." oninput={ctrl.searchManga.bind(ctrl)}/>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="row" style={ctrl.loadMangaList ? "display:block;" : "display:none;"}>
-              <div class="col-md-12">
+          <div class="col-md-12">
+            <div class="row" style={ctrl.loadMangaList() ? "display:block;" : "display:none;"}>
+              <div class="col-md-12 text-center">
                 <i class="fa fa-spin fa-refresh"></i>
               </div>
             </div>
-            {_.map(ctrl.mangaList, function(mangaBook) {
-              return (
-                <h4 onmouseover={ctrl.enterEvent.bind(ctrl)}
-                  onmouseout={ctrl.leaveEvent.bind(ctrl)}
-                  onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} style="cursor: pointer;">
-                  - {mangaBook.title()}
-                </h4>
-              );
-            })}
-          </div>
-          <div class="col-md-6">
+            <div class="col-sm-12">
+              {_.map(ctrl.mangaList, function(mangaBook) {
+                return (
+                  <h4 onmouseover={ctrl.enterEvent.bind(ctrl)}
+                    onmouseout={ctrl.leaveEvent.bind(ctrl)}
+                    onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} style="cursor: pointer;width: 80%;">
+                    - {mangaBook.title()}
+                  </h4>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
