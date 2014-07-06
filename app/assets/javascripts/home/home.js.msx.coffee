@@ -2,7 +2,8 @@
 define [
   "mithril"
   "navigation/navigation"
-], (m, navigation) ->
+  "manga/manga"
+], (m, navigation, manga) ->
   "use strict"
 
   #namespace for app
@@ -10,6 +11,7 @@ define [
 
   # app model
   app.model = (href, title)->
+    @ctrl  = new manga.controller([])
     @href  = m.prop(href)
     @title = m.prop(title)
     return
@@ -21,7 +23,6 @@ define [
     @mangaList      = new app.AppList()
     @timeout        = undefined
     @navigationCtrl = new navigation.controller()
-    @currentManga   = undefined
     @loadMangaList  = m.prop(false)
 
     registerLoadEvent = (->
@@ -70,23 +71,32 @@ define [
     ).bind(this)
 
     @mangaSelectEvent = ((mangaBook)->
-      @currentManga = mangaBook
+      unless mangaBook.ctrl.mangaBook.chapters().length is 0
+        mangaBook.ctrl.setVisibility(!mangaBook.ctrl.mangaBook.display())
+        return
+      data =
+        link: mangaBook.href()
+
+      m.request(method: "POST", url: "/api/v1/batoto/", data: data, config: ((xhr) ->
+        xhr.setRequestHeader "Content-Type", "application/json"
+      )).then(
+        (response) -> mangaBook.ctrl.setMangaBook(response)
+        (error) -> alert error.error
+      )
     ).bind(this)
 
     # animation for element
     @enterEvent = (event)->
-      TweenLite.to event.target, 0.2, {
+      TweenLite.to event.target, 0.5, {
         width: '100%'
-        borderRadius: '4px'
         backgroundColor: 'black'
         color: '#89CD25'
       }
       return
 
     @leaveEvent = (event)->
-      TweenLite.to event.target, 0.2, {
+      TweenLite.to event.target, 0.1, {
         width: '80%'
-        borderRadius: '0'
         backgroundColor: 'none'
         color: 'black'
       }
@@ -113,11 +123,14 @@ define [
             <div class="col-sm-12">
               {_.map(ctrl.mangaList, function(mangaBook) {
                 return (
-                  <h4 onmouseover={ctrl.enterEvent.bind(ctrl)}
-                    onmouseout={ctrl.leaveEvent.bind(ctrl)}
-                    onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} style="cursor: pointer;width: 80%;">
-                    - {mangaBook.title()}
-                  </h4>
+                  <div class="row">
+                    <h4 onmouseover={ctrl.enterEvent.bind(ctrl)}
+                      onmouseout={ctrl.leaveEvent.bind(ctrl)}
+                      onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} style="border-radius: 4px;cursor: pointer;width: 80%;">
+                      - {mangaBook.title()}
+                    </h4>
+                    {manga.view(mangaBook.ctrl)}
+                  </div>
                 );
               })}
             </div>

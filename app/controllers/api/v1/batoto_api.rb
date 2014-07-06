@@ -42,7 +42,11 @@ module API
         end
         post "/" do
           doc = Nokogiri::HTML(open(params[:link]))
-          puts "hello"
+          chapters = doc.css('table.chapters_list tr.lang_English').map do |row|
+            link = row.css('a')[0]
+            {:href => link['href'], :title => link.content}
+          end
+          chapters
         end
       end
     end
