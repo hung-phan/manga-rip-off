@@ -17,6 +17,7 @@ define [
     data =
       link: m.route.param("link")
 
+    # parse function for server
     @nonJsonErrors = (xhr)->
       if xhr.status > 200 then JSON.stringify(xhr.responseText) else xhr.responseText
 
