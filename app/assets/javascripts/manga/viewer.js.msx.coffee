@@ -17,7 +17,10 @@ define [
     data =
       link: m.route.param("link")
 
-    m.request(method: "POST", url: "/api/v1/batoto/view", background: true, data: data, config: ((xhr) ->
+    nonJsonErrors = (xhr)->
+      if xhr.status > 200 then JSON.stringify(xhr.responseText) else xhr.responseText
+
+    m.request(method: "POST", url: "/api/v1/batoto/view", extract: nonJsonError, sbackground: true, data: data, config: ((xhr) ->
       xhr.setRequestHeader "Content-Type", "application/json"
     )).then(@pages).then(m.redraw)
 
