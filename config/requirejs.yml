@@ -1,5 +1,3 @@
-module:
- - name: 'application'
 paths:
   # require mithril library
   'mithril': 'mithril/mithril'
