@@ -48,6 +48,19 @@ module API
           end
           chapters
         end
+
+        desc "get chapter page"
+        params do
+          requires :link, type: String , desc: "Page link"
+        end
+        post "/view" do
+          doc = Nokogiri::HTML(open(params[:link]))
+          pages = doc.css('select#page_select option').map do |option|
+            pageRequest = Nokogiri::HTML(open(option['value']))
+            pageRequest.css('img#comic_page')[0]['src']
+          end
+          pages
+        end
       end
     end
   end

@@ -5,10 +5,11 @@ require [
   "home/home"
   "login/login"
   "register/register"
+  "manga/viewer"
   "lodash"
   "TweenMax"
   "bootstrap"
-], ($, m, home, login, register) ->
+], ($, m, home, login, register, viewer) ->
   $(document).ready ->
 
     #setup routes to start w/ the `#` symbol
@@ -19,6 +20,7 @@ require [
       "/login": login
       "/register": register
       "/": home
+      "/viewer/:link...": viewer
 
     return
 

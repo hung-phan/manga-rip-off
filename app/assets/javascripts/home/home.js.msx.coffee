@@ -88,16 +88,12 @@ define [
     # animation for element
     @enterEvent = (event)->
       TweenLite.to event.target, 0.5, {
-        width: '100%'
-        backgroundColor: 'black'
         color: '#89CD25'
       }
       return
 
     @leaveEvent = (event)->
       TweenLite.to event.target, 0.1, {
-        width: '80%'
-        backgroundColor: 'none'
         color: 'black'
       }
       return
@@ -124,11 +120,11 @@ define [
               {_.map(ctrl.mangaList, function(mangaBook) {
                 return (
                   <div class="row">
-                    <h4 onmouseover={ctrl.enterEvent.bind(ctrl)}
+                    <p onmouseover={ctrl.enterEvent.bind(ctrl)}
                       onmouseout={ctrl.leaveEvent.bind(ctrl)}
-                      onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} style="border-radius: 4px;cursor: pointer;width: 80%;">
+                      onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} class="col-md-12 lead" style="cursor: pointer;">
                       - {mangaBook.title()}
-                    </h4>
+                    </p>
                     {manga.view(mangaBook.ctrl)}
                   </div>
                 );

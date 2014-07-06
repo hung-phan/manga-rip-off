@@ -1,5 +1,8 @@
 ###* @jsx m ###
-define ["mithril"], (m) ->
+define [
+  "mithril"
+  "helper/routing"
+], (m, routing) ->
   "use strict"
 
   #namespace for manga
@@ -33,6 +36,9 @@ define ["mithril"], (m) ->
       @mangaBook.display(visibility)
     ).bind(this)
 
+    @route = (link)->
+      routing.path "/viewer/#{link}"
+
     return
 
   #view
@@ -40,7 +46,7 @@ define ["mithril"], (m) ->
     `<div class="col-sm-12" style={ctrl.mangaBook.display() ? 'display:block;' : 'display:none;'}>
       {_.map(ctrl.mangaBook.chapters(), function(chapter) {
         return (
-          <p><a href={chapter.href}>{chapter.title}</a></p>
+          <p><a onclick={ctrl.route.bind(ctrl, chapter.href)}>{chapter.title}</a></p>
         );
       })}
     </div>`
