@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.assets.precompile += %w(.svg .eot .woff .ttf)
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
