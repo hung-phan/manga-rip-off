@@ -34,6 +34,9 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 #
+# em-http-request
+gem 'em-http-request'
+# event machine
 gem 'eventmachine'
 # twitter bootstrap
 gem 'bootstrap-sass'
@@ -58,7 +61,5 @@ gem 'grape'
 gem 'therubyracer', platforms: :ruby
 gem 'nokogiri'
 gem 'rails_12factor', group: :production
-# asynchronous request
-gem 'typhoeus'
 
 ruby "2.1.1"
