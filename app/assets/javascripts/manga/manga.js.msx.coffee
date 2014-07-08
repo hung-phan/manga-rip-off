@@ -24,7 +24,10 @@ define ["mithril"], (m) ->
         return
 
       # edit chapter
-      @mangaBook.chapters(chapters)
+      @mangaBook.chapters(_.map(chapters, (chapter)->
+        chapter.href = encodeURIComponent(chapter.href)
+        chapter
+      ))
       # show chapter
       @mangaBook.display(true)
     ).bind(this)
@@ -37,7 +40,7 @@ define ["mithril"], (m) ->
 
   #view
   manga.view = (ctrl) ->
-    `<div class="col-sm-12" style={ctrl.mangaBook.display() ? 'display:block;' : 'display:none;'}>
+    `<div class="col-md-12" style={ctrl.mangaBook.display() ? 'display:block;' : 'display:none;'}>
       {_.map(ctrl.mangaBook.chapters(), function(chapter) {
         return (
           <p><a href={'#/viewer/' + chapter.href}>{chapter.title}</a></p>

@@ -3,7 +3,6 @@
 
 # asset 'bootstrap'# auto generate bower assets
 
-asset 'sass-bootstrap'
 asset 'lodash'
 asset 'jquery', '2.1.1'
 asset 'mithril'

@@ -12,16 +12,12 @@ define [
   viewer.controller = ->
     # init
     @pages = m.prop([])
-    @navigationCtrl = new navigation.controller()
+    @navigationCtrl = navigation.sharedController
 
     data =
-      link: m.route.param("link")
+      link: decodeURIComponent(m.route.param("link"))
 
-    # parse function for server
-    @nonJsonErrors = (xhr)->
-      if xhr.status > 200 then JSON.stringify(xhr.responseText) else xhr.responseText
-
-    m.request(method: "POST", url: "/api/v1/batoto/view", extract: @nonJsonError, background: true, data: data, config: ((xhr) ->
+    m.request(method: "POST", url: "/api/v1/batoto/view", background: true, data: data, config: ((xhr) ->
       xhr.setRequestHeader "Content-Type", "application/json"
     )).then(@pages).then(m.redraw)
 

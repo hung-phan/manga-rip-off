@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'thread'
 require 'open-uri'
 
 module API
@@ -7,12 +8,8 @@ module API
       include API::V1::Defaults
 
       helpers do
-        def current_user
-          true
-        end
-
-        def authenticate!
-          error!('401 Unauthorized', 401) unless current_user
+        def logger
+          BatotoApi.logger
         end
       end
 
@@ -55,11 +52,28 @@ module API
         end
         post "/view" do
           doc = Nokogiri::HTML(open(params[:link]))
-          pages = doc.css('select#page_select option').map do |option|
-            pageRequest = Nokogiri::HTML(open(option['value']))
-            pageRequest.css('img#comic_page')[0]['src']
+          hydra = Typhoeus::Hydra.hydra(max_concurrency: 10)
+
+          doc.css('select#page_select option').map do |option|
+            # get all page link
+            option['value'].gsub 'http://', ''
+          end.each_with_index.map do |link, index|
+            # get page link asynchronously
+            page = index + 1
+            image_request = Typhoeus::Request.new(link)
+            image_request.on_complete do |res|
+              puts "get page #{page}"
+              puts res
+              #image_parser = Nokogiri::HTML(response.body)
+              #images[index] = image_parser.css('img#comic_page')[0]['src']
+            end
+            hydra.queue image_request
           end
-          pages
+
+          # run request
+          hydra.run
+
+          []
         end
       end
     end

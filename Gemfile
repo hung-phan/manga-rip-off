@@ -33,7 +33,10 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
+#
+gem 'eventmachine'
+# twitter bootstrap
+gem 'bootstrap-sass'
 # bower dependencies manager for rails
 gem 'bower-rails'
 # modernizr
@@ -55,5 +58,7 @@ gem 'grape'
 gem 'therubyracer', platforms: :ruby
 gem 'nokogiri'
 gem 'rails_12factor', group: :production
+# asynchronous request
+gem 'typhoeus'
 
-ruby "2.1.2"
+ruby "2.1.1"

@@ -32,6 +32,8 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    bootstrap-sass (3.2.0.0)
+      sass (~> 3.2)
     bower-rails (0.7.3)
     builder (3.2.2)
     celluloid (0.15.2)
@@ -53,6 +55,8 @@ GEM
       http_parser.rb (~> 0.6.0)
     equalizer (0.0.9)
     erubis (2.7.0)
+    ethon (0.7.1)
+      ffi (>= 1.3.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
     ffi (1.9.3)
@@ -181,6 +185,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.9)
+      ethon (>= 0.7.1)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     uglifier (2.5.1)
@@ -196,8 +202,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass
   bower-rails
   coffee-rails (~> 4.0.0)
+  eventmachine
   font-awesome-rails
   grape
   guard
@@ -214,4 +222,5 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   therubyracer
+  typhoeus
   uglifier (>= 1.3.0)
