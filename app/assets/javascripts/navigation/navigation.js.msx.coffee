@@ -23,11 +23,7 @@ define ["mithril"], (m) ->
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#/">
-            Manga Rip Off
-            <i class="fa fa-spin fa-refresh"></i>
-            <span class="glyphicon glyphicon-search"></span>
-          </a>
+          <a class="navbar-brand" href="#/">Manga Rip Off</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
