@@ -38,7 +38,7 @@ module API
 
         desc "get manga main page"
         params do
-          requires :link, type: String , desc: "Page link"
+          requires :link, type: String, desc: "Page link"
         end
         post "/" do
           doc = Nokogiri::HTML(open(params[:link]))
@@ -52,16 +52,24 @@ module API
 
         desc "get chapter page"
         params do
-          requires :link, type: String , desc: "Page link"
+          requires :link, type: String, desc: "Page link"
         end
         post "/view" do
           doc = Nokogiri::HTML(open(params[:link]))
           images = []
 
-          page_links = doc.css('select#page_select option').map do |option|
-            # get all page link
-            option['value']
-          end
+          # get link of previous chapter
+          prev_link = doc.css(
+            'li[style="display: inline-block; float: left; margin-top:-11px;"]'
+          )[0].css('a')[0]['href']
+
+          # get link of next chapter
+          next_link = doc.css(
+            'li[style="display: inline-block; float: right; margin-top:-11px;"]'
+          )[0].css('a')[0]['href']
+
+          # get all page link
+          page_links = doc.css('select#page_select option').map do |option| option['value'] end
 
           EventMachine.run do
             multi = EventMachine::MultiRequest.new
@@ -82,13 +90,12 @@ module API
                   # do nothing
                 end
               end
-              p images
               logger.info "Error request: #{multi.responses[:errback].length}"
               EventMachine.stop
             end
           end
 
-          images
+          {:prev => prev_link, :next => next_link, :images => images}
         end
       end
     end
