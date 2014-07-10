@@ -60,14 +60,36 @@ module API
           images = []
 
           # get link of previous chapter
-          prev_link = doc.css(
-            'li[style="display: inline-block; float: left; margin-top:-11px;"]'
-          )[0].css('a')[0]['href']
+          prev_link = nil
+          begin
+            prev_link = doc.css(
+              'li[style="display: inline-block; float: left; margin-top:-11px;"]'
+            )
+            if prev_link.length == 4
+              prev_link = prev_link[0].css('a')[0]['href']
+            else
+              prev_link = nil
+            end
+          rescue
+            # TODO
+            # first chapter
+          end
 
           # get link of next chapter
-          next_link = doc.css(
-            'li[style="display: inline-block; float: right; margin-top:-11px;"]'
-          )[0].css('a')[0]['href']
+          next_link = nil
+          begin
+            next_link = doc.css(
+              'li[style="display: inline-block; float: right; margin-top:-11px;"]'
+            )
+            if next_link.length == 4
+              next_link = next_link[0].css('a')[0]['href']
+            else
+              next_link = nil
+            end
+          rescue
+            # TODO
+            # last chapter
+          end
 
           # get all page link
           chapter_name = doc.css('select[name="chapter_select"] option').detect { |option|

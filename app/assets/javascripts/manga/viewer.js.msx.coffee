@@ -29,11 +29,25 @@ define [
       xhr.setRequestHeader "Content-Type", "application/json"
     )).then(((response)->
       @pages(response['images'])
-      @prev(encodeURIComponent(response['prev']))
-      @next(encodeURIComponent(response['next']))
       @title(response['title'])
       @loading(false)
+
+      # check if previous link exist
+      if response['prev']
+        @prev(encodeURIComponent(response['prev']))
+      else
+        @prev(false)
+
+      # check if next link exist
+      if response['next']
+        @next(encodeURIComponent(response['next']))
+      else
+        @next(false)
+
+      # redraw
       m.redraw()
+
+      return
     ).bind(this))
 
     return
@@ -45,10 +59,10 @@ define [
       <div class="container">
         <a href={'#/viewer/' + ctrl.prev()}
           class="btn btn-primary view-button"
-          style={!ctrl.loading() ? ctrl.addStyle('display:inline;', 'left:2%;') : ctrl.addStyle('display:none;', 'left:2%;')}>Previous</a>
+          style={!ctrl.loading() && ctrl.prev() ? ctrl.addStyle('display:inline;', 'left:2%;') : ctrl.addStyle('display:none;', 'left:2%;')}>Previous</a>
         <a href={'#/viewer/' + ctrl.next()}
           class="btn btn-primary view-button"
-          style={!ctrl.loading() ? ctrl.addStyle('display:inline;', 'right:2%;') : ctrl.addStyle('display:none;', 'right:2%;')}>Next</a>
+          style={!ctrl.loading() && ctrl.next() ? ctrl.addStyle('display:inline;', 'right:2%;') : ctrl.addStyle('display:none;', 'right:2%;')}>Next</a>
 
         <div class="row">
           <div class="col-md-12 text-center">
