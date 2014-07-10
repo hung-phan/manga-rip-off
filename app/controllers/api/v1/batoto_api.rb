@@ -80,16 +80,15 @@ module API
             end
 
             multi.callback do
-              multi.responses[:callback].to_a.sort_by do |callback_data|
+              multi.responses[:callback].to_a.sort_by { |callback_data|
                 callback_data[0]
-              end.each do |callback_data|
+              }.each { |callback_data|
                 begin
                   images << Nokogiri::HTML(callback_data[1].response).css('img#comic_page')[0]['src']
                 rescue
-                  # TODO
-                  # do nothing
+                  # TODO do something to rescue from 404 for requesting page in batoto
                 end
-              end
+              }
               logger.info "Error request: #{multi.responses[:errback].length}"
               EventMachine.stop
             end
