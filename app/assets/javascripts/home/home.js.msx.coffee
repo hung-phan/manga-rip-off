@@ -117,10 +117,15 @@ define [
       {navigation.view(ctrl.navigationCtrl)}
       <div class="container">
         <div class="row">
+          <div class="col-md-12 text-center">
+            <h1 style="padding-bottom: 22px;">Welcome to Manga Rip Off page</h1>
+          </div>
+        </div>
+        <div class="row">
           <input type="text" class="col-xs-11 col-md-11 search-box status-form"
-            placeholder="Manga name ..." oninput={ctrl.searchManga.bind(ctrl)}/>
+            placeholder="Search ..." oninput={ctrl.searchManga.bind(ctrl)}/>
           <div style={ctrl.loadMangaList() ? "display:block;" : "display:none;"}
-            class="col-xs-1 col-md-1 text-center">
+            class="col-xs-1 col-md-1 text-right">
             <i class="fa fa-2x fa-spin fa-refresh"></i>
           </div>
         </div>
@@ -136,6 +141,7 @@ define [
                     <span style={mangaBook.loading() ? "display:inline;" : "display:none;"}>
                       <i class="fa fa-spin fa-refresh"></i>
                     </span>
+                    <span class="label label-info pull-right">Batoto</span>
                   </p>
                 </div>
                 {manga.view(mangaBook.ctrl)}
