@@ -15,6 +15,7 @@ define [
     @loading        = m.prop(true)
     @prev           = m.prop("")
     @next           = m.prop("")
+    @title          = m.prop("")
     @navigationCtrl = navigation.sharedController
 
     # function
@@ -30,6 +31,7 @@ define [
       @pages(response['images'])
       @prev(encodeURIComponent(response['prev']))
       @next(encodeURIComponent(response['next']))
+      @title(response['title'])
       @loading(false)
       m.redraw()
     ).bind(this))
@@ -50,7 +52,7 @@ define [
 
         <div class="row">
           <div class="col-md-12 text-center">
-            <h2><strong>Lorem Ipsum</strong></h2>
+            <h2><strong>{ctrl.title()}</strong></h2>
             <span style={ctrl.loading() ? 'display:inline;' : 'display:none;'}>
               <i class="fa fa-4x fa-spin fa-refresh"></i>
             </span>

@@ -43,11 +43,12 @@ module API
         post "/" do
           doc = Nokogiri::HTML(open(params[:link]))
 
+          image = doc.css('div.ipsBox')[0].css('img')[0]['src']
           chapters = doc.css('table.chapters_list tr.lang_English').map do |row|
             link = row.css('a')[0]
             {:href => link['href'], :title => link.content}
           end
-          chapters
+          { :image => image, :chapters => chapters }
         end
 
         desc "get chapter page"
@@ -69,7 +70,12 @@ module API
           )[0].css('a')[0]['href']
 
           # get all page link
-          page_links = doc.css('select#page_select option').map do |option| option['value'] end
+          chapter_name = doc.css('select[name="chapter_select"] option').detect { |option|
+            option['selected']
+          }.content
+          page_links = doc.css('select#page_select option').map do |option|
+            option['value']
+          end
 
           EventMachine.run do
             multi = EventMachine::MultiRequest.new
@@ -94,7 +100,7 @@ module API
             end
           end
 
-          {:prev => prev_link, :next => next_link, :images => images}
+          {:prev => prev_link, :next => next_link, :title => chapter_name, :images => images}
         end
       end
     end

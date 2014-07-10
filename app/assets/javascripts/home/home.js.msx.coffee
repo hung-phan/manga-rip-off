@@ -88,7 +88,7 @@ define [
         xhr.setRequestHeader "Content-Type", "application/json"
       )).then(
         (response) ->
-          mangaBook.ctrl.setMangaBook(response)
+          mangaBook.ctrl.setMangaBook(response['image'], response['chapters'])
           clearLoadEvent(mangaBook.loading)
         (error) ->
           alert error.error
