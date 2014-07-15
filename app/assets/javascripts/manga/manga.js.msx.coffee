@@ -43,7 +43,8 @@ define ["mithril"], (m) ->
 
   #view
   manga.view = (ctrl) ->
-    `<div class="panel panel-default col-md-8 col-md-offset-2" style={ctrl.mangaBook.display() ? 'display:block;' : 'display:none;'}>
+    `<div class="panel panel-default col-md-8 col-md-offset-2"
+      style={ctrl.mangaBook.display() ? 'display:block;' : 'display:none;'}>
       <div class="panel-body">
         <div class="row">
           <img class="col-md-4" src={ctrl.mangaBook.image()} alt="manga image"/>

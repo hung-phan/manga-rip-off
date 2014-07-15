@@ -58,12 +58,15 @@ define [
       {navigation.view(ctrl.navigationCtrl)}
       <div class="container">
         <a href={'#/viewer/' + ctrl.prev()}
-          class="btn btn-primary view-button"
-          style={!ctrl.loading() && ctrl.prev() ? ctrl.addStyle('display:inline;', 'left:2%;') : ctrl.addStyle('display:none;', 'left:2%;')}>Previous</a>
+          class="btn btn-default view-button"
+          style={!ctrl.loading() && ctrl.prev() ? ctrl.addStyle('display:inline;', 'left:2%;') : ctrl.addStyle('display:none;', 'left:2%;')}>
+          <i class="fa fa-2x fa-arrow-left"></i>
+        </a>
         <a href={'#/viewer/' + ctrl.next()}
-          class="btn btn-primary view-button"
-          style={!ctrl.loading() && ctrl.next() ? ctrl.addStyle('display:inline;', 'right:2%;') : ctrl.addStyle('display:none;', 'right:2%;')}>Next</a>
-
+          class="btn btn-default view-button"
+          style={!ctrl.loading() && ctrl.next() ? ctrl.addStyle('display:inline;', 'right:2%;') : ctrl.addStyle('display:none;', 'right:2%;')}>
+          <i class="fa fa-2x fa-arrow-right"></i>
+        </a>
         <div class="row">
           <div class="col-md-12 text-center">
             <h2><strong>{ctrl.title()}</strong></h2>
@@ -73,9 +76,15 @@ define [
           </div>
         </div>
         <div class="row">
-          {_.map(ctrl.pages(), function(page, i) {
-            return <img class="col-md-10 col-md-offset-1 text-center" src={page} alt={"page " + i}/>
-          })}
+          <div class="col-xs-12 col-sm-12 col-md-12">
+            {_.map(ctrl.pages(), function(page, i) {
+              return (
+                <div class="row">
+                  <img class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 text-center" src={page} alt={"page " + i}/>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
       </div>

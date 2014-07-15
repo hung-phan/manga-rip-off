@@ -1,21 +1,24 @@
 .search-box {
   border: none !important;
   box-shadow: none !important;
-  border-color: Transparent;
-  outline: none;
-  resize: none;
+  border-color: Transparent !important;
+  outline: none !important;
+  resize: none !important;
 }
-.status-form{
-  height:34px;
-  font-size:14px;
-  line-height:1.428571429;
-  color:#555555;
-  background-color: #f3f3f3;
-  background-image:none;
-  border:1px solid #cccccc;
-  border-radius:4px;
-  -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);
-  box-shadow:inset 0 1px 1px rgba(0,0,0,0.075);
-  -webkit-transition:border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  transition:border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
+.status-form {
+  height:34px !important;
+  font-size:14px !important;
+  line-height:1.428571429 !important;
+  color: #555555 !important;
+  background-color: #f3f3f3 !important;
+  background-image:none !important;
+}
+.right-inner-addon {
+  position: relative;
+}
+.right-inner-addon .icon {
+  position: absolute;
+  top: 3px;
+  right: 8px;
+  pointer-events: none;
 }

@@ -118,35 +118,41 @@ define [
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
-            <h1 style="padding-bottom: 22px;">Welcome to Manga Rip Off page</h1>
+            <h1 style="padding-bottom: 22px;">Welcome to Manga Ripoff page</h1>
           </div>
         </div>
         <div class="row">
-          <input type="text" class="col-xs-11 col-md-11 search-box status-form"
-            placeholder="Search ..." oninput={ctrl.searchManga.bind(ctrl)}/>
-          <div style={ctrl.loadMangaList() ? "display:block;" : "display:none;"}
-            class="col-xs-1 col-md-1 text-right">
-            <i class="fa fa-2x fa-spin fa-refresh"></i>
+          <div class="col-md-12">
+            <div class="right-inner-addon">
+              <div style={ctrl.loadMangaList() ? "display:inline;" : "display:none;"} class="icon text-right">
+                <i class="fa fa-2x fa-spin fa-refresh"></i>
+              </div>
+              <input type="text" class="form-control search-box status-form"
+                placeholder="Search ..." oninput={ctrl.searchManga.bind(ctrl)}/>
+            </div>
           </div>
         </div>
         <div class="row" style="padding-top: 20px;">
-          {_.map(ctrl.mangaList, function(mangaBook) {
-            return (
-              <div class="row">
-                <div class="col-md-12">
-                  <p onmouseover={ctrl.enterEvent.bind(ctrl)}
-                    onmouseout={ctrl.leaveEvent.bind(ctrl)}
-                    onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)} class="lead" style="cursor: pointer;">
-                    {mangaBook.title()}&nbsp;
-                    <span style={mangaBook.loading() ? "display:inline;" : "display:none;"}>
-                      <i class="fa fa-spin fa-refresh"></i>
-                    </span>
-                  </p>
+          <div class="col-md-12">
+            {_.map(ctrl.mangaList, function(mangaBook) {
+              return (
+                <div class="row">
+                  <div class="col-md-12">
+                    <p onmouseover={ctrl.enterEvent.bind(ctrl)}
+                      onmouseout={ctrl.leaveEvent.bind(ctrl)}
+                      onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)}
+                      class="lead" style="cursor: pointer;">
+                      {mangaBook.title()}&nbsp;
+                      <span style={mangaBook.loading() ? "display:inline;" : "display:none;"}>
+                        <i class="fa fa-spin fa-refresh"></i>
+                      </span>
+                    </p>
+                  </div>
+                  {manga.view(mangaBook.ctrl)}
                 </div>
-                {manga.view(mangaBook.ctrl)}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>`
