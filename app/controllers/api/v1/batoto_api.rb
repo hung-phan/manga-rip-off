@@ -30,8 +30,8 @@ module API
           )))
 
           # Search for nodes by css
-          links = doc.css('tr strong a').map do |link|
-            {:title => link.content, :href => link['href']}
+          links = doc.css("tr strong a").map do |link|
+            {:title => link.content, :href => link["href"]}
           end
           links
         end
@@ -43,10 +43,10 @@ module API
         post "/" do
           doc = Nokogiri::HTML(open(params[:link]))
 
-          image = doc.css('div.ipsBox')[0].css('img')[0]['src']
-          chapters = doc.css('table.chapters_list tr.lang_English').map do |row|
-            link = row.css('a')[0]
-            {:href => link['href'], :title => link.content}
+          image = doc.css("div.ipsBox")[0].css("img")[0]["src"]
+          chapters = doc.css("table.chapters_list tr.lang_English").map do |row|
+            link = row.css("a")[0]
+            {:href => link["href"], :title => link.content}
           end
           { :image => image, :chapters => chapters }
         end
@@ -82,7 +82,7 @@ module API
               'li[style="display: inline-block; float: right; margin-top:-11px;"]'
             )
             if next_link.length == 4
-              next_link = next_link[0].css('a')[0]['href']
+              next_link = next_link[0].css("a")[0]["href"]
             else
               next_link = nil
             end
@@ -112,7 +112,7 @@ module API
                 callback_data[0]
               }.each { |callback_data|
                 begin
-                  images << Nokogiri::HTML(callback_data[1].response).css('img#comic_page')[0]['src']
+                  images << Nokogiri::HTML(callback_data[1].response).css("img#comic_page")[0]["src"]
                 rescue
                   # TODO do something to rescue from 404 for requesting page in batoto
                 end

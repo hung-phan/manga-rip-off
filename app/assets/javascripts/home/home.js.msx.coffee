@@ -55,7 +55,7 @@ define [
       @timeout = setTimeout(
         () ->
           registerLoadEvent(loadMangaList)
-          m.request(method: "GET", url: "/api/v1/batoto/#{event.target.value}", config: ((xhr) ->
+          m.request(method: "GET", url: "/api/v1/kissmanga/#{event.target.value}", config: ((xhr) ->
             xhr.setRequestHeader "Content-Type", "application/json"
           )).then(
             (response) ->
@@ -84,7 +84,7 @@ define [
         link: mangaBook.href()
 
       registerLoadEvent(mangaBook.loading)
-      m.request(method: "POST", url: "/api/v1/batoto/", data: data, config: ((xhr) ->
+      m.request(method: "POST", url: "/api/v1/kissmanga/", data: data, config: ((xhr) ->
         xhr.setRequestHeader "Content-Type", "application/json"
       )).then(
         (response) ->
@@ -141,7 +141,6 @@ define [
                     <span style={mangaBook.loading() ? "display:inline;" : "display:none;"}>
                       <i class="fa fa-spin fa-refresh"></i>
                     </span>
-                    <span class="label label-info pull-right">Batoto</span>
                   </p>
                 </div>
                 {manga.view(mangaBook.ctrl)}

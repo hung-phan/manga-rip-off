@@ -25,7 +25,7 @@ define [
     data =
       link: decodeURIComponent(m.route.param("link"))
 
-    m.request(method: "POST", url: "/api/v1/batoto/view", background: true, data: data, config: ((xhr) ->
+    m.request(method: "POST", url: "/api/v1/kissmanga/view", background: true, data: data, config: ((xhr) ->
       xhr.setRequestHeader "Content-Type", "application/json"
     )).then(((response)->
       @pages(response['images'])
