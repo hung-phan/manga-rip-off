@@ -1,11 +1,11 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "sass-bootstrap": "latest",
     "lodash": "latest",
     "jquery": "2.1.1",
     "mithril": "latest",
     "alertify": "latest",
-    "greensock": "latest"
+    "greensock": "latest",
+    "jQuery.mmenu": "latest"
   }
 }

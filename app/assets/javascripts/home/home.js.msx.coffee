@@ -99,12 +99,14 @@ define [
     # animation for element
     @enterEvent = (event)->
       TweenLite.to event.target, 0.5, {
-        color: '#89CD25'
+        backgroundColor: '#000000'
+        color: '#ffffff'
       }
       return
 
     @leaveEvent = (event)->
       TweenLite.to event.target, 0.1, {
+        backgroundColor: '#ffffff'
         color: '#333333'
       }
       return
@@ -141,7 +143,7 @@ define [
                     <p onmouseover={ctrl.enterEvent.bind(ctrl)}
                       onmouseout={ctrl.leaveEvent.bind(ctrl)}
                       onclick={ctrl.mangaSelectEvent.bind(ctrl, mangaBook)}
-                      class="lead" style="cursor: pointer;">
+                      class="lead" style="cursor: pointer;border-radius: 3px;padding-left: 3px;">
                       {mangaBook.title()}&nbsp;
                       <span style={mangaBook.loading() ? "display:inline;" : "display:none;"}>
                         <i class="fa fa-spin fa-refresh"></i>

@@ -11,6 +11,8 @@ paths:
   'alertify': 'alertify/alertify'
   # tweenlite
   'TweenMax': 'greensock/src/uncompressed/TweenMax'
+  # slide
+  'sidebar': 'jQuery.mmenu/src/js/jquery.mmenu.min.all'
 shim:
   'mithril':
     exports: 'm'
@@ -19,3 +21,4 @@ shim:
   'bootstrap': ['jquery']
   'TweenMax':
     exports: 'TweenMax'
+  'sidebar': ['jquery']

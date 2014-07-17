@@ -2,21 +2,23 @@
 define [
   "mithril"
   "navigation/navigation"
-], (m, navigation) ->
+  "manga/sidebar"
+  "manga/menu-link"
+], (m, navigation, sidebar, menuLink) ->
   "use strict"
 
-  #namespace for viewer
+  # namespace for viewer
   viewer = {}
 
-  #controller
+  # controller
   viewer.controller = ->
     # init
     @pages          = m.prop([])
     @loading        = m.prop(true)
-    @prev           = m.prop("")
-    @next           = m.prop("")
     @title          = m.prop("")
     @navigationCtrl = navigation.sharedController
+    @sidebarCtrl    = new sidebar.controller()
+    @menuLinkCtrl   = new menuLink.controller(@sidebarCtrl.toggleSideBar)
 
     # function
     @addStyle = (base, style)->
@@ -34,15 +36,15 @@ define [
 
       # check if previous link exist
       if response['prev']
-        @prev(encodeURIComponent(response['prev']))
+        @sidebarCtrl.prev(encodeURIComponent(response['prev']))
       else
-        @prev(false)
+        @sidebarCtrl.prev(false)
 
       # check if next link exist
       if response['next']
-        @next(encodeURIComponent(response['next']))
+        @sidebarCtrl.next(encodeURIComponent(response['next']))
       else
-        @next(false)
+        @sidebarCtrl.next(false)
 
       # redraw
       m.redraw()
@@ -52,21 +54,15 @@ define [
 
     return
 
-  #view
+  # TODO Add chapters_list to sidebar menu
+
+  # view
   viewer.view = (ctrl) ->
     `<div>
       {navigation.view(ctrl.navigationCtrl)}
+      {sidebar.view(ctrl.sidebarCtrl)}
+      {menuLink.view(ctrl.menuLinkCtrl)}
       <div class="container">
-        <a href={'#/viewer/' + ctrl.prev()}
-          class="btn btn-default view-button"
-          style={!ctrl.loading() && ctrl.prev() ? ctrl.addStyle('display:inline;', 'left:2%;') : ctrl.addStyle('display:none;', 'left:2%;')}>
-          <i class="fa fa-2x fa-arrow-left"></i>
-        </a>
-        <a href={'#/viewer/' + ctrl.next()}
-          class="btn btn-default view-button"
-          style={!ctrl.loading() && ctrl.next() ? ctrl.addStyle('display:inline;', 'right:2%;') : ctrl.addStyle('display:none;', 'right:2%;')}>
-          <i class="fa fa-2x fa-arrow-right"></i>
-        </a>
         <div class="row">
           <div class="col-md-12 text-center">
             <h2><strong>{ctrl.title()}</strong></h2>
@@ -86,7 +82,6 @@ define [
             })}
           </div>
         </div>
-
       </div>
     </div>`
 
