@@ -1,8 +1,9 @@
 ###* @jsx m ###
 define [
   "mithril"
+  "helper/routing"
   "sidebar"
-], (m) ->
+], (m, routing) ->
   "use strict"
 
   # sidebar component
@@ -33,11 +34,14 @@ define [
     @chapters = m.prop([])
 
     #handler
-    @toggleSideBar = ()->
+    @toggleSideBar = ->
       if !isSidebarShow
         sidebarComponent.trigger("open.mm")
       else
         sidebarComponent.trigger("close.mm")
+
+    @changePage = (event)->
+      routing.path "/viewer/#{encodeURIComponent(event.target.value)}"
 
     return
 
@@ -46,9 +50,13 @@ define [
     `<nav config={sidebar.config(ctrl)}>
       <ul>
         <li>
-          <select style="width: 100%;">
-            <option value="1">Hello</option>
-            <option value="2">Hello</option>
+          <select style="width: 100%;" onchange={ctrl.changePage.bind(ctrl)}>
+            {_.map(ctrl.chapters(), function(chapter) {
+              return (
+                chapter.selected ? <option selected value={chapter.value}>{chapter.title}</option>
+                                 : <option value={chapter.value}>{chapter.title}</option>
+              );
+            })}
           </select>
         </li>
         <li>

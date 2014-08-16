@@ -84,6 +84,7 @@ module API
           doc.css("select.selectChapter")[0].css("option").each do |option|
             if option[:selected] == "selected"
               chapter_name = option.content
+              break
             end
           end
 
@@ -104,7 +105,26 @@ module API
             end
           end
 
-          {:prev => prev_link, :next => next_link, :title => chapter_name, :images => images}
+          chapters = []
+          root_url = doc.css("#navsubbar p a")[0][:href]
+          doc.css(".selectChapter option").each do |option|
+            content = {
+              :value => root_url + "/" + option[:value],
+              :title => option.content.strip
+            }
+            if option[:selected] == "selected"
+              content[:selected] = true
+            end
+            chapters << content
+          end
+
+          {
+            :prev => prev_link,
+            :next => next_link,
+            :title => chapter_name,
+            :images => images,
+            :chapters => chapters
+          }
         end
       end
     end

@@ -55,8 +55,14 @@ group :development do
   gem 'guard'
   gem 'guard-livereload', require: false
 end
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'meta_request'
+end
 # grape api
 gem 'grape'
+gem 'grape-entity'
 # embed the V8 Javascript Interpreter into Ruby
 gem 'therubyracer', platforms: :ruby
 gem 'nokogiri'

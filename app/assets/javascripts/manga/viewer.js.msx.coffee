@@ -45,6 +45,8 @@ define [
         @sidebarCtrl.next(encodeURIComponent(response['next']))
       else
         @sidebarCtrl.next(false)
+      # assign chapters to sidebar
+      @sidebarCtrl.chapters(response['chapters'])
 
       # redraw
       m.redraw()
